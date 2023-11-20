@@ -20,3 +20,12 @@ export async function createUser({ address, birthdate, email, name }: User) {
 
   return created.status;
 }
+
+export async function getByFilter(name: string) {
+  const response = await api.get<User[]>(routes.user.filters, {
+    params: { name },
+  });
+
+  const data = response.data;
+  return data;
+}

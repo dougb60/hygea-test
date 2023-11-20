@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import React from "react";
 
+import { TextInputProps } from "react-native";
 import {
   Container,
   SearchIconContainer,
@@ -8,35 +9,18 @@ import {
   SearchTextInput,
 } from "./styles";
 
-const Search: React.FC = () => {
-  const [inputText, setInputtext] = useState<string>("");
-  const [buttonCollor, setButtonCollor] = useState<string>("black");
-
-  const activeSearchButton = useCallback(
-    (val: string) => {
-      setInputtext(val);
-      if (val.length > 0) {
-        setButtonCollor("#7bdcb5");
-        return;
-      }
-      setButtonCollor("black");
-    },
-    [inputText]
-  );
-
+const Search: React.FC<TextInputProps & { onClean: () => void }> = (props) => {
   return (
     <Container>
       <SearchInputContainer>
-        <SearchTextInput
-          placeholder="Busque por um usuário"
-          onChangeText={activeSearchButton}
-        />
+        <SearchTextInput placeholder="Busque por um usuário" {...props} />
       </SearchInputContainer>
       <SearchIconContainer>
-        <Ionicons
-          name="ios-search-circle-outline"
-          size={32}
-          color={buttonCollor}
+        <MaterialIcons
+          name="highlight-remove"
+          size={24}
+          color="black"
+          onPress={props.onClean}
         />
       </SearchIconContainer>
     </Container>

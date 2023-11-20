@@ -29,6 +29,7 @@ class UserService {
 
     const filteredUser = await database.manager.find(User, {
       where: filterObject,
+      take: 10,
     });
 
     return filteredUser;

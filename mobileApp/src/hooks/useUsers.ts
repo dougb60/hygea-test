@@ -1,6 +1,6 @@
 import { User } from "@/src/types/Users";
 import { useState } from "react";
-import { createUser, getAll } from "../services/User";
+import { createUser, getAll, getByFilter } from "../services/User";
 import { FormProps } from "../screens/User/CreateUser";
 import { formatAddress, formatStringToDate } from "../utils/";
 
@@ -36,7 +36,17 @@ function useUsers() {
     });
   };
 
-  return { getAllUsers, users, createNewUser };
+  const getUserByFilter = async (filter: string) => {
+    if (filter.length > 3) {
+      const filteredUsers = await getByFilter(filter);
+
+      setUsers(filteredUsers);
+      return;
+    }
+    getAllUsers();
+  };
+
+  return { getAllUsers, users, createNewUser, getUserByFilter };
 }
 
 export default useUsers;

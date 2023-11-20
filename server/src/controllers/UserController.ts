@@ -36,10 +36,12 @@ class UserController {
   async getByFilter(req: Request, res: Response) {
     try {
       const filters = req.query as unknown as Record<string, string>;
-      const filteresUsers = UserService.getByFilter(filters);
+      const filteresUsers = await UserService.getByFilter(filters);
 
-      res.status(200).send({ error: false, users: filteresUsers });
+      res.status(200).send(filteresUsers);
     } catch (err) {
+      console.log(err);
+
       res.status(500).send({ error: true, message: `Erro => ${err}` });
     }
   }
