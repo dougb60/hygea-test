@@ -35,7 +35,15 @@ class UserService {
   }
 
   async createUser(user: User) {
-    const created = await database.manager.save(user);
+    let date;
+    if (user.birthdate) date = new Date(user.birthdate);
+
+    const newUser = await database.manager.create(User, {
+      ...user,
+      birthdate: date,
+    });
+
+    const created = await database.manager.save<User>(newUser);
     return created;
   }
 

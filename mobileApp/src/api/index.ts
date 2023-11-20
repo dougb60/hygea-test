@@ -4,7 +4,9 @@ const BASE_URL = "http://127.0.0.1:3001/";
 
 const api = axios.create({
   baseURL: BASE_URL,
-  headers: { post: { "Content-Type": "application/x-www-form-urlencoded" } },
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.response.use(

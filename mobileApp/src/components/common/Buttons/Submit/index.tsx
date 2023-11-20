@@ -10,7 +10,7 @@ type ButtonProps = {
 
 const Submit: React.FC<ButtonProps> = ({ onPress, disabled }) => {
   return (
-    <Button onPress={onPress} disabled={disabled}>
+    <Button onPress={() => onPress && onPress()} disabled={disabled}>
       <Text text="Enviar" type="bold" color="#ffffff" />
     </Button>
   );

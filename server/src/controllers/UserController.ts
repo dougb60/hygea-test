@@ -46,8 +46,10 @@ class UserController {
 
   async createUser(req: Request, res: Response) {
     const user = req.body as User;
+
     try {
       const created = await UserService.createUser(user);
+
       if (created.id) res.status(200).send({ error: false });
     } catch (err) {
       res.status(500).send({ error: true, message: `Erro => ${err}` });

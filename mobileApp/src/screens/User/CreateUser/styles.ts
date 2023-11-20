@@ -19,7 +19,6 @@ export const LineContainer = styled.View`
   gap: 10px;
   padding: 16px 16px;
   border-radius: 10px;
-  margin-bottom: 8px;
 `;
 
 export const Input = styled.TextInput`
