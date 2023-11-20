@@ -3,8 +3,12 @@ import { User } from "../entities/User";
 import { Like } from "typeorm";
 
 class UserService {
+  // @TODO: incluir paginação
   async getAllUsers() {
-    const users = await database.manager.find(User);
+    const users = await database.manager.find(User, {
+      take: 10,
+      order: { name: "ASC" },
+    });
     return users;
   }
 

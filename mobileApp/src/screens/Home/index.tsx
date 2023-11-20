@@ -6,8 +6,14 @@ import CreateButton from "../../components/Home/CreateButton";
 import React, { useCallback, useEffect } from "react";
 import useUsers from "../../hooks/useUsers";
 import { User } from "@/src/types/Users";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../types/navigation";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 const Home: React.FC = () => {
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, "Home">>();
+
   const { getAllUsers, users } = useUsers();
 
   useEffect(() => {
@@ -33,7 +39,7 @@ const Home: React.FC = () => {
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
       />
-      <CreateButton />
+      <CreateButton onPress={() => navigation.push("CreateUser")} />
     </MainContainer>
   );
 };

@@ -3,9 +3,13 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { CircleButton } from "./styles";
 
-const CreateButton: React.FC = () => {
+type ButtonProps = {
+  onPress: () => void;
+};
+
+const CreateButton: React.FC<ButtonProps> = ({ onPress }) => {
   return (
-    <CircleButton>
+    <CircleButton onPress={onPress}>
       <AntDesign name="adduser" size={24} color="#fafafa" />
     </CircleButton>
   );
