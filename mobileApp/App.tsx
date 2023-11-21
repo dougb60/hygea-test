@@ -10,6 +10,8 @@ import React from "react";
 import Home from "./src/screens/Home";
 import { CreateUser } from "./src/screens/User";
 import { RootStackParamList } from "./src/types/navigation";
+import { StatusBar } from "expo-status-bar";
+import ListUser from "./src/screens/User/ListUser";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -27,6 +29,7 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
+        <StatusBar style="light" />
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
@@ -50,6 +53,12 @@ export default function App() {
             component={CreateUser}
             initialParams={undefined}
             options={{ title: "Novo Usuário" }}
+          />
+          <Stack.Screen
+            name="ListUser"
+            component={ListUser}
+            initialParams={undefined}
+            options={{ title: "Usuário" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

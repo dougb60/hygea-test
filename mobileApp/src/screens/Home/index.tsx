@@ -2,7 +2,7 @@ import { User } from "@/src/types/Users";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, ListRenderItem } from "react-native";
+import { FlatList, ListRenderItem, TouchableOpacity } from "react-native";
 import CreateButton from "../../components/Home/CreateButton";
 import Search from "../../components/Home/FindComponent";
 import UserCard from "../../components/Home/UserCard";
@@ -31,7 +31,23 @@ const Home: React.FC = () => {
 
   const renderItem: ListRenderItem<User> = useCallback(
     ({ item }) => {
-      return <UserCard {...item} />;
+      return (
+        <TouchableOpacity
+          onPress={() =>
+            navigation.push("ListUser", {
+              user: {
+                address: item.address,
+                birthdate: item.birthdate,
+                email: item.email,
+                name: item.name,
+                id: item.id,
+              },
+            })
+          }
+        >
+          <UserCard {...item} />
+        </TouchableOpacity>
+      );
     },
     [users]
   );
