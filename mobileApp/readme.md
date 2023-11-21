@@ -25,3 +25,7 @@ Instale com yarn
 ![App Screenshot](assets/screenshots/ss6.png)
 ![App Screenshot](assets/screenshots/ss7.png)
 ![App Screenshot](assets/screenshots/ss8.png)
+
+## Wireframe
+
+- [Excalidraw](https://excalidraw.com/#json=lXEj7z0j4ItrjBV68vSWS,N-brv8HwyfIUxBoufZjdpw)
