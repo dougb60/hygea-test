@@ -1,6 +1,6 @@
 import { User } from "@/src/types/Users";
 import { useState } from "react";
-import { createUser, getAll, getByFilter } from "../services/User";
+import { createUser, getAll, getByFilter, deleteById } from "../services/User";
 import { FormProps } from "../screens/User/CreateUser";
 import { formatAddress, formatStringToDate } from "../utils/";
 
@@ -46,7 +46,11 @@ function useUsers() {
     getAllUsers();
   };
 
-  return { getAllUsers, users, createNewUser, getUserByFilter };
+  const deleteUserById = async (id: string) => {
+    deleteById(id);
+  };
+
+  return { getAllUsers, users, createNewUser, getUserByFilter, deleteUserById };
 }
 
 export default useUsers;

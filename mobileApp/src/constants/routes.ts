@@ -1,3 +1,8 @@
 export const routes = {
-  user: { getAll: "users", create: "users/create", filters: "users/filters" },
+  user: {
+    getAll: "users",
+    create: "users/create",
+    filters: "users/filters",
+    delete: "users/delete",
+  },
 };

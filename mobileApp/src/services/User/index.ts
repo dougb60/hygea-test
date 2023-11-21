@@ -16,7 +16,6 @@ export async function createUser({ address, birthdate, email, name }: User) {
     email,
     name,
   });
-  console.log(created);
 
   return created.status;
 }
@@ -28,4 +27,10 @@ export async function getByFilter(name: string) {
 
   const data = response.data;
   return data;
+}
+
+export async function deleteById(id: string) {
+  const response = await api.delete(`${routes.user.delete}/${id}`);
+
+  return response.status;
 }
