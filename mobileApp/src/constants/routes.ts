@@ -4,5 +4,6 @@ export const routes = {
     create: "users/create",
     filters: "users/filters",
     delete: "users/delete",
+    update: "users/put",
   },
 };

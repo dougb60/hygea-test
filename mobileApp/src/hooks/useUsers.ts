@@ -1,6 +1,12 @@
 import { User } from "@/src/types/Users";
 import { useState } from "react";
-import { createUser, getAll, getByFilter, deleteById } from "../services/User";
+import {
+  createUser,
+  getAll,
+  getByFilter,
+  deleteById,
+  updateUser,
+} from "../services/User";
 import { FormProps } from "../screens/User/CreateUser";
 import { formatAddress, formatStringToDate } from "../utils/";
 
@@ -13,13 +19,14 @@ function useUsers() {
     setUsers(users);
   };
 
-  const createNewUser = ({
+  const createUpdateUser = ({
     birthdate,
     email,
     name,
     number,
     street,
     address_details,
+    id,
   }: FormProps) => {
     const formattedAddress = formatAddress({
       street,
@@ -27,6 +34,18 @@ function useUsers() {
       details: address_details,
     });
     const formattedDate = formatStringToDate(birthdate);
+
+    if (id) {
+      updateUser({
+        address: formattedAddress,
+        birthdate: formattedDate,
+        email,
+        name,
+        id,
+      });
+
+      return;
+    }
 
     createUser({
       address: formattedAddress,
@@ -50,7 +69,13 @@ function useUsers() {
     deleteById(id);
   };
 
-  return { getAllUsers, users, createNewUser, getUserByFilter, deleteUserById };
+  return {
+    getAllUsers,
+    users,
+    createUpdateUser,
+    getUserByFilter,
+    deleteUserById,
+  };
 }
 
 export default useUsers;

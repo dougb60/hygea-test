@@ -1,20 +1,23 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { TextInputMask } from "react-native-masked-text";
 
-import MainContainer from "../../../components/common/MainContainer";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Submit from "../../../components/common/Buttons/Submit";
+import MainContainer from "../../../components/common/MainContainer";
 import Text from "../../../components/common/Text";
+import useUsers from "../../../hooks/useUsers";
+import { RootStackParamList } from "../../../types/navigation";
 import {
+  AddressContainer,
+  ButtonContainer,
+  FormContainer,
   Input,
   LineContainer,
   TextContainer,
-  FormContainer,
-  AddressContainer,
-  ButtonContainer,
 } from "./styles";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useUsers from "../../../hooks/useUsers";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 export type FormProps = {
   name: string;
@@ -23,10 +26,22 @@ export type FormProps = {
   street: string;
   number: string;
   address_details?: string;
+  id?: number | string;
 };
 
 const CreateUser: React.FC = () => {
-  const { createNewUser } = useUsers();
+  const { createUpdateUser } = useUsers();
+  const { params } = useRoute<RouteProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const props = params?.user;
+
+  const text = useMemo(() => {
+    if (props && props.id) {
+      return "Altere os campos abaixo para atualizar as informações do usuário";
+    }
+
+    return "Por favor, preencha as informações abaixo para cadastrar um novo usuário ";
+  }, [props]);
 
   const {
     control,
@@ -35,27 +50,23 @@ const CreateUser: React.FC = () => {
   } = useForm({
     mode: "onSubmit",
     defaultValues: {
-      name: "",
-      email: "",
-      birthdate: "",
-      street: "",
+      name: props?.name ?? "",
+      email: props?.email ?? "",
+      birthdate: props?.birthdate ?? "",
+      street: props?.address ?? "",
       number: "",
       address_details: "",
     },
   });
-  const onSubmit = (props: FormProps) => {
-    createNewUser(props);
+  const onSubmit = (data: FormProps) => {
+    createUpdateUser({ ...data, id: props?.id ?? undefined });
+    navigation.reset({ index: 0, routes: [{ name: "Home" }] });
   };
 
   return (
     <MainContainer>
       <TextContainer>
-        <Text
-          text="Por favor, preencha as informações abaixo para cadastrar um novo usuário "
-          type="medium"
-          color="#212121"
-          size={14}
-        />
+        <Text text={text} type="medium" color="#212121" size={14} />
       </TextContainer>
       <FormContainer>
         <KeyboardAwareScrollView>
@@ -202,7 +213,11 @@ const CreateUser: React.FC = () => {
           </LineContainer>
         </KeyboardAwareScrollView>
         <ButtonContainer>
-          <Submit onPress={handleSubmit(onSubmit)} disabled={false} />
+          <Submit
+            onPress={handleSubmit(onSubmit)}
+            disabled={false}
+            text={props && props.id ? "Atualizar" : "Enviar"}
+          />
         </ButtonContainer>
       </FormContainer>
     </MainContainer>

@@ -27,7 +27,7 @@ const ListUser: React.FC = () => {
   const handleDelete = async () => {
     setModalVisible(false);
     deleteUserById(params?.id?.toString() ?? "0");
-    navigation.push("Home");
+    navigation.reset({ index: 0, routes: [{ name: "Home" }] });
   };
 
   return (
@@ -77,7 +77,21 @@ const ListUser: React.FC = () => {
         </SimpleContainer>
       </Container>
       <ButtonContainer>
-        <ActionButton text="Atualizar" type="warning" onPress={() => null} />
+        <ActionButton
+          text="Atualizar"
+          type="warning"
+          onPress={() =>
+            navigation.push("UpdateUser", {
+              user: {
+                address: params?.address ?? "",
+                birthdate: params?.birthdate ?? "",
+                email: params?.email ?? "",
+                name: params?.name ?? "",
+                id: params?.id?.toString() ?? "",
+              },
+            })
+          }
+        />
         <ActionButton
           text="Excluir"
           type="danger"

@@ -34,3 +34,21 @@ export async function deleteById(id: string) {
 
   return response.status;
 }
+
+export async function updateUser({
+  address,
+  birthdate,
+  email,
+  name,
+  id,
+}: User) {
+  const response = await api.put(routes.user.update, {
+    address,
+    birthdate,
+    email,
+    name,
+    id,
+  });
+
+  return response.status;
+}

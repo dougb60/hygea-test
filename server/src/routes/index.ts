@@ -10,6 +10,6 @@ router.get("/users/filters", UserController.getByFilter);
 router.get("/users/:id", UserController.getById);
 router.post("/users/create", UserController.createUser);
 router.delete("/users/delete/:id", UserController.deleteUser);
-// router.put("/users/put/:id", UserController.deleteUser);
+router.put("/users/put/", UserController.updateUser);
 
 export default router;

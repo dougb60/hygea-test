@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [navigation]);
 
   const renderItem: ListRenderItem<User> = useCallback(
     ({ item }) => {

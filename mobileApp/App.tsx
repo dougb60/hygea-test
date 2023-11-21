@@ -60,6 +60,11 @@ export default function App() {
             initialParams={undefined}
             options={{ title: "Usuário" }}
           />
+          <Stack.Screen
+            name="UpdateUser"
+            component={CreateUser}
+            options={{ title: "Atualiza Usuário" }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
